@@ -1,0 +1,97 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: "Montserrat", Arial, sans-serif;
+  --font-heading: "Montserrat", Arial, sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ink: var(--ink);
+  --color-black-deep: var(--black-deep);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--text-tertiary);
+  --color-accent-orange: var(--accent-orange);
+  --color-accent-orange-hover: var(--accent-orange-hover);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 0.75rem;
+  --background: #ffffff;
+  --foreground: #1f211f;
+  --card: #ffffff;
+  --card-foreground: #1f211f;
+  --popover: #ffffff;
+  --popover-foreground: #1f211f;
+  --primary: #252724;
+  --primary-foreground: #ffffff;
+  --secondary: #f2f2ef;
+  --secondary-foreground: #252724;
+  --muted: #f3f3f0;
+  --muted-foreground: #6f726d;
+  --accent: #fff1e7;
+  --accent-foreground: #b94e1f;
+  --destructive: #d33e3e;
+  --border: #e4e4df;
+  --input: #deded8;
+  --ring: #e86b2c;
+  --ink: #20221f;
+  --black-deep: #171916;
+  --text-secondary: #5f625d;
+  --text-tertiary: #838680;
+  --accent-orange: #e86b2c;
+  --accent-orange-hover: #cf5720;
+  --success: #218451;
+  --success-soft: #e9f7ef;
+}
+
+* { border-color: var(--border); }
+html { scroll-behavior: smooth; }
+body {
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: "Montserrat", Arial, sans-serif;
+}
+button, a, input { -webkit-tap-highlight-color: transparent; }
+.hero-grid {
+  background-image: linear-gradient(rgba(28,30,28,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(28,30,28,.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(to bottom, black 0%, transparent 88%);
+}
+.hero-glow { background: rgba(232, 107, 44, .16); filter: blur(110px); }
+.bg-ink .hero-grid {
+  background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+}
+.cta-lines { background-image: repeating-linear-gradient(105deg, transparent 0 35px, rgba(255,255,255,.18) 36px, transparent 37px 72px); }
+.eyebrow { color: var(--accent-orange); font-size: .75rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+::selection { background: rgba(232, 107, 44, .25); }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}

@@ -1,7 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.model.user import User
-from sqlalchemy import select
+from sqlalchemy import select, update
 
 from uuid import UUID
 
@@ -27,7 +27,12 @@ class UserRepository:
 
         return resp.scalar_one_or_none()
 
-    async def insert_user(self, user: User)-> None:
+    async def insert_user(self, user: User) -> None:
         self.db.add(user)
         await self.db.flush([user])
 
+    async def update_email_verification(self, user_id: UUID):
+        operation = (
+            update(User).values({"email_verified": True}).where(User.id == user_id)
+        )
+        await self.db.execute(operation)

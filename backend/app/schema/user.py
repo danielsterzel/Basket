@@ -5,7 +5,7 @@ from app.schema.validation import validate_schema_password
 from app.schema.ConfiguredSchema import ConfiguredSchema
 from datetime import datetime
 from typing import Literal
-from model.user import OAuthAccount, User
+from model.user import OAuthAccount
 
 
 class UserRead(ConfiguredSchema):
@@ -56,10 +56,9 @@ class UserLogin(ConfiguredSchema):
     def validate(cls, password: str) -> str:
         return validate_schema_password(password)
 
+
 class UserRegisterSuccess(ConfiguredSchema):
-
     msg: str
-
 
 
 class UserLoginSuccess(ConfiguredSchema):
@@ -68,3 +67,14 @@ class UserLoginSuccess(ConfiguredSchema):
     access_token: str
     refresh_token: str
     token_type: Literal["bearer"]
+
+
+class UserConfirmEmailRequest(ConfiguredSchema):
+    email_verified: bool
+    email: str
+    token: str
+
+
+class UserConfirmEmailResponse(ConfiguredSchema):
+    msg: str
+    email_verified: bool

@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="pl" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="x-apple-disable-message-reformatting">
+    <meta name="format-detection" content="telephone=no,address=no,email=no,date=no,url=no">
+    <title>Potwierdź swój adres e-mail — Smasket</title>
+    <style>
+      html,
+      body {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        background: #f3f1ed;
+      }
+
+      table,
+      td {
+        border-collapse: collapse !important;
+      }
+
+      img {
+        display: block;
+        border: 0;
+        outline: none;
+        text-decoration: none;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      @media only screen and (max-width: 620px) {
+        .email-shell {
+          width: 100% !important;
+        }
+
+        .mobile-padding {
+          padding-left: 22px !important;
+          padding-right: 22px !important;
+        }
+
+        .content-card {
+          border-radius: 20px !important;
+        }
+
+        .headline {
+          font-size: 30px !important;
+          line-height: 36px !important;
+        }
+
+        .button-cell,
+        .button-link {
+          display: block !important;
+          width: 100% !important;
+          box-sizing: border-box !important;
+        }
+      }
+    </style>
+  </head>
+  <body style="margin: 0; padding: 0; background-color: #f3f1ed; color: #20221f; font-family: Arial, Helvetica, sans-serif;">
+    <!-- Ukryty tekst widoczny w podglądzie skrzynki odbiorczej. -->
+    <div style="display: none; max-height: 0; overflow: hidden; opacity: 0; color: transparent; line-height: 1px; font-size: 1px;">
+      Potwierdź adres e-mail i zacznij układać tańsze koszyki ze Smasket.
+    </div>
+
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width: 100%; background-color: #f3f1ed;">
+      <tr>
+        <td align="center" style="padding: 40px 16px;">
+          <table class="email-shell" role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width: 600px; max-width: 600px;">
+            <tr>
+              <td class="mobile-padding" style="padding: 0 8px 24px;">
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                  <tr>
+                    <td width="42" height="42" align="center" valign="middle" style="width: 42px; height: 42px; border-radius: 13px; background-color: #e86b2c; color: #ffffff; font-size: 23px; line-height: 42px;">
+                      &#x1F6D2;
+                    </td>
+                    <td style="padding-left: 12px; color: #20221f; font-size: 20px; line-height: 26px; font-weight: 700; letter-spacing: -0.4px;">
+                      Smasket
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="content-card" style="overflow: hidden; border: 1px solid #e4e2dc; border-radius: 28px; background-color: #ffffff; box-shadow: 0 18px 48px rgba(31, 33, 31, 0.08);">
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                  <tr>
+                    <td style="height: 7px; background-color: #e86b2c; font-size: 0; line-height: 0;">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td class="mobile-padding" style="padding: 48px 48px 18px;">
+                      <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                          <td style="padding: 7px 12px; border-radius: 999px; background-color: #fff1e7; color: #c65320; font-size: 11px; line-height: 15px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase;">
+                            Jeszcze jeden krok
+                          </td>
+                        </tr>
+                      </table>
+
+                      <h1 class="headline" style="margin: 24px 0 0; color: #20221f; font-size: 38px; line-height: 44px; font-weight: 700; letter-spacing: -1.4px;">
+                        Potwierdź swój<br>adres e-mail
+                      </h1>
+
+                      {% if user_name | default('') %}
+                      <p style="margin: 24px 0 0; color: #5f625d; font-size: 16px; line-height: 27px;">
+                        Cześć {{ user_name }},
+                      </p>
+                      {% endif %}
+
+                      <p style="margin: 16px 0 0; color: #5f625d; font-size: 16px; line-height: 27px;">
+                        Dziękujemy za założenie konta. Kliknij przycisk poniżej, aby potwierdzić adres e-mail i zacząć porównywać ceny całego koszyka.
+                      </p>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="mobile-padding" style="padding: 18px 48px 14px;">
+                      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width: 100%;">
+                        <tr>
+                          <td class="button-cell" align="center" style="border-radius: 13px; background-color: #20221f;">
+                            <a class="button-link" href="{{ confirmation_url }}" target="_blank" style="display: inline-block; padding: 17px 28px; color: #ffffff; font-size: 15px; line-height: 20px; font-weight: 700; text-decoration: none;">
+                              Potwierdź adres e-mail&nbsp;&nbsp;&rarr;
+                            </a>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="mobile-padding" style="padding: 12px 48px 36px;">
+                      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width: 100%; border-radius: 14px; background-color: #f7f6f3;">
+                        <tr>
+                          <td style="padding: 18px 20px; color: #6f726d; font-size: 13px; line-height: 21px;">
+                            <strong style="color: #343632;">Przycisk nie działa?</strong><br>
+                            Skopiuj ten adres i wklej go w przeglądarce:<br>
+                            <a href="{{ confirmation_url }}" target="_blank" style="color: #c65320; text-decoration: underline; word-break: break-all;">{{ confirmation_url }}</a>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="mobile-padding" style="padding: 0 48px 46px;">
+                      <p style="margin: 0; color: #838680; font-size: 13px; line-height: 21px;">
+                        {% if expiration_minutes | default(0) %}
+                        Link wygaśnie za {{ expiration_minutes }} min.
+                        {% else %}
+                        Link jest aktywny przez ograniczony czas.
+                        {% endif %}
+                        Jeśli to nie Ty zakładałeś konto, możesz bezpiecznie zignorować tę wiadomość.
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="mobile-padding" align="center" style="padding: 24px 24px 0; color: #838680; font-size: 12px; line-height: 19px;">
+                <p style="margin: 0;">Smasket &middot; Cały koszyk. Najniższy rachunek.</p>
+                <p style="margin: 7px 0 0;">Ta wiadomość została wysłana automatycznie — prosimy na nią nie odpowiadać.</p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

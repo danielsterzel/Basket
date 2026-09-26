@@ -75,6 +75,11 @@ async def login(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Incorrect Values in login form",
         )
+    if not user.email_verified:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Email not verified",
+        )
 
     saved_hash = await repository.get_password_hash_using_email(email=login_email)
 

@@ -6,6 +6,7 @@ from app.db.dependency import get_db
 
 from typing import Annotated
 
+from auth.auth_token import create_token
 from db.enities.email import VerificationEmailRepository
 from db.enities.user import UserRepository
 from schema.user import (
@@ -17,7 +18,7 @@ from schema.user import (
     UserConfirmEmailRequest,
     UserConfirmEmailResponse,
 )
-from service.auth_token import create_token
+
 from service.email import send_verification_email
 from service.password import PasswordService
 from app.model.user import User

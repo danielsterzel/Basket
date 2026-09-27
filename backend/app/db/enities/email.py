@@ -1,4 +1,4 @@
-from model.email import VerificationEmail
+from app.model.email import VerificationEmail
 from uuid import UUID
 from sqlalchemy import select, delete
 
@@ -29,3 +29,15 @@ class VerificationEmailRepository:
         await self.db.execute(
             delete(VerificationEmail).where(VerificationEmail.id == verification_id)
         )
+
+    async def get_verification_email_by_token_hash(
+            self,
+            token_hash: str,
+    ) -> VerificationEmail | None:
+        query = select(VerificationEmail).where(
+            VerificationEmail.token_hash == token_hash
+        )
+
+        response = await self.db.execute(query)
+
+        return response.scalar_one_or_none()

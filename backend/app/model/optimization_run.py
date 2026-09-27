@@ -7,8 +7,8 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.db.base import Base
 
 
-class Cart(Base):
-    __tablename__ = "carts"
+class OptimizationRun(Base):
+    __tablename__ = "optimization_runs"
 
     id: Mapped[UUID] = mapped_column(
         PG_UUID(as_uuid=True),
@@ -26,5 +26,5 @@ class Cart(Base):
     )
 
     user: Mapped["User"] = relationship(
-        back_populates="carts",
+        back_populates="optimization_runs",
     )

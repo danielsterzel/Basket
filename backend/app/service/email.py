@@ -3,20 +3,20 @@ from aiosmtplib import SMTP
 from email.message import EmailMessage
 from datetime import datetime, timedelta, timezone
 import secrets
-import hashlib
 from urllib.parse import urlencode
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.settings import settings
 from db.enities.email import VerificationEmailRepository
-from model.email import VerificationEmail
+from app.model.email import VerificationEmail
 from service.jinja_template_renderer import get_confirm_email_template
 from uuid import UUID
 
 from url.hash_url import hash_email_confirmation_token
 
 EMAIL_EXPIRATION_MINUTES = 30
+
 
 
 async def send_verification_email(
@@ -47,17 +47,23 @@ async def send_verification_email(
     )
     message.add_alternative(template, subtype="html")
 
-    smtp_client = SMTP()
+    smtp_client = SMTP(
+        hostname=settings.smtp_host,
+        port=settings.smtp_port,
+        start_tls=True
+    )
     await smtp_client.connect()
     try:
         await smtp_client.login(settings.smtp_email, settings.smtp_password)
     except aiosmtplib.errors.SMTPAuthenticationError:
         print(f"LOGIN ERROR ON SMTP. Email: {settings.smtp_email}")
+        raise
 
     try:
         await smtp_client.send_message(message)
     except aiosmtplib.errors.SMTPRecipientRefused:
         print(f"smth happen idk twin🥀")
+        raise
 
 
 async def create_verification_email_entity(user_id: UUID, db: AsyncSession) -> str:

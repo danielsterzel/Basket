@@ -7,11 +7,11 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from db.dependency import get_db
 from core.settings import settings
 from db.enities.user import UserRepository
-
+from app.model.user import User
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/user/login")
 
 
-async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)], db: Annotated[AsyncSession, Depends(get_db)]):
+async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)], db: Annotated[AsyncSession, Depends(get_db)])-> User:
 
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,

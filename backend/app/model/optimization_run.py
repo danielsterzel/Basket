@@ -3,9 +3,14 @@ from uuid import UUID, uuid4
 from sqlalchemy import ForeignKey
 from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-
+from enum import Enum
 from app.db.base import Base
 
+
+class OptimizationType(str, Enum):
+    LOWEST_PRICE = "lowest_price"
+    FASTEST_DELIVERY = "fastest_delivery"
+    CONVENIENT = "convenient"
 
 class OptimizationRun(Base):
     __tablename__ = "optimization_runs"

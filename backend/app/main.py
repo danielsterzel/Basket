@@ -7,7 +7,7 @@ from app.core.settings import settings
 import logging
 from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
-
+from app.api.cart import router as cart_router
 from app.api.user import router as user_router
 
 app = FastAPI()
@@ -47,6 +47,7 @@ app.add_middleware(
 )
 
 app.include_router(user_router)
+app.include_router(cart_router)
 
 
 @app.get("/")

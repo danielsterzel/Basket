@@ -1,18 +1,12 @@
 from logging.config import fileConfig
 
-from sqlalchemy.ext.asyncio import async_engine_from_config
 from sqlalchemy import pool
+from sqlalchemy.ext.asyncio import async_engine_from_config
 
+import app.model  # noqa: F401  Ensures every model is registered in Base.metadata.
 from alembic import context
-
-from app.db.base import Base
 from app.core.settings import settings
-from app.model.user import User, OAuthAccount
-from app.model.cart import Cart
-from app.model.search import Search
-from app.model.optimization_run import OptimizationRun
-from app.model.email import VerificationEmail
-
+from app.db.base import Base
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

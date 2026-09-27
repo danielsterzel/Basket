@@ -12,6 +12,7 @@ class OptimizationType(str, Enum):
     FASTEST_DELIVERY = "fastest_delivery"
     CONVENIENT = "convenient"
 
+
 class OptimizationRun(Base):
     __tablename__ = "optimization_runs"
 

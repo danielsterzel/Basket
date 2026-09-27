@@ -11,6 +11,6 @@ class PasswordService:
 
     def validate_login_password(self, password: str, password_hash: str) -> bool:
         try:
-            return self.password_hasher.verify(password, password_hash)
+            return self.password_hasher.verify(password_hash, password)
         except VerifyMismatchError:
             return False

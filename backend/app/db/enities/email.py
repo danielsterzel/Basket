@@ -31,8 +31,8 @@ class VerificationEmailRepository:
         )
 
     async def get_verification_email_by_token_hash(
-            self,
-            token_hash: str,
+        self,
+        token_hash: str,
     ) -> VerificationEmail | None:
         query = select(VerificationEmail).where(
             VerificationEmail.token_hash == token_hash

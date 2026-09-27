@@ -18,7 +18,6 @@ from url.hash_url import hash_email_confirmation_token
 EMAIL_EXPIRATION_MINUTES = 30
 
 
-
 async def send_verification_email(
     recipient: str,
     username: str,
@@ -48,9 +47,7 @@ async def send_verification_email(
     message.add_alternative(template, subtype="html")
 
     smtp_client = SMTP(
-        hostname=settings.smtp_host,
-        port=settings.smtp_port,
-        start_tls=True
+        hostname=settings.smtp_host, port=settings.smtp_port, start_tls=True
     )
     await smtp_client.connect()
     try:

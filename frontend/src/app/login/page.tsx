@@ -24,7 +24,6 @@ import { type UserLogin, UserLoginSchema } from "@/lib/zod-schemas";
 const TOAST_TIMEOUT = 5000;
 
 export default function LoginPage() {
-  const [loginRequest, setLoginRequest] = useState<Partial<UserLogin>>({});
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const router = useRouter();
@@ -39,7 +38,7 @@ export default function LoginPage() {
 
       const tokenStorage = rememberMe ? localStorage : sessionStorage;
       tokenStorage.setItem("access_token", response.accessToken);
-      queryClient.setQueryData(["currentUser"], response.user);
+      queryClient.setQueryData(["auth", "user"], response.user);
 
       toast.add({
         title: "Zalogowano pomyślnie",
@@ -48,7 +47,7 @@ export default function LoginPage() {
         timeout: TOAST_TIMEOUT,
       });
 
-      router.replace("/");
+      router.replace("/dashboard");
     },
 
     onError: () => {
@@ -86,7 +85,13 @@ export default function LoginPage() {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          handleLoginSubmit(loginRequest);
+
+          const formData = new FormData(e.currentTarget);
+
+          handleLoginSubmit({
+            email: String(formData.get("email") ?? ""),
+            password: String(formData.get("password") ?? ""),
+          });
         }}
         className="space-y-5"
       >
@@ -97,12 +102,7 @@ export default function LoginPage() {
           <div className="relative">
             <Mail className="absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-text-tertiary" />
             <Input
-              onChange={(e) => {
-                setLoginRequest((previous) => ({
-                  ...previous,
-                  email: e.target.value,
-                }));
-              }}
+              name="email"
               id="email"
               type="email"
               autoComplete="email"
@@ -126,12 +126,7 @@ export default function LoginPage() {
           <div className="relative">
             <LockKeyhole className="absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-text-tertiary" />
             <Input
-              onChange={(e) => {
-                setLoginRequest((previous) => ({
-                  ...previous,
-                  password: e.target.value,
-                }));
-              }}
+              name="password"
               id="password"
               type={showPassword ? "text" : "password"}
               autoComplete="current-password"

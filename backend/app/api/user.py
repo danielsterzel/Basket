@@ -18,7 +18,7 @@ from app.schema.user import (
     UserConfirmEmailRequest,
     UserConfirmEmailResponse,
     UserResendEmailRequest,
-    UserResendEmailResponse
+    UserResendEmailResponse,
 )
 
 from service.email import send_verification_email
@@ -73,6 +73,7 @@ async def login(
     login_email = login_request.email
 
     user = await repository.get_user_by_email(email=login_email)
+    print(repr(user.email))
 
     if not user:
         raise HTTPException(
@@ -92,7 +93,6 @@ async def login(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Incorrect Values in login form",
         )
-
     validated = password_service.validate_login_password(
         login_request.password, saved_hash
     )
@@ -137,9 +137,7 @@ async def confirm_email(
             status_code=status.HTTP_404_NOT_FOUND, detail="Invalid verification email"
         )
 
-    user = await user_repository.get_user_by_id(
-        verification_email.user_id
-    )
+    user = await user_repository.get_user_by_id(verification_email.user_id)
 
     if not user:
         raise HTTPException(
@@ -175,9 +173,11 @@ async def confirm_email(
         msg="Thank you! you have confirmed your email ;)", email_verified=True
     )
 
+
 @router.post("/resend_email", response_model=UserResendEmailResponse)
-async def resend_email(resend_request: UserResendEmailRequest,
-                       db:Annotated[AsyncSession, Depends(get_db)]):
+async def resend_email(
+    resend_request: UserResendEmailRequest, db: Annotated[AsyncSession, Depends(get_db)]
+):
     user_repository = UserRepository(db)
     verification_email_repository = VerificationEmailRepository(db)
 
@@ -209,10 +209,8 @@ async def resend_email(resend_request: UserResendEmailRequest,
         user_id=user.id,
         db=db,
     )
-    return UserResendEmailResponse(
-        msg="Verification email sent",
-        success=True
-    )
+    return UserResendEmailResponse(msg="Verification email sent", success=True)
+
 
 @router.get("/me", response_model=UserRead)
 async def get_me(current_user: Annotated[User, Depends(get_current_user)]):

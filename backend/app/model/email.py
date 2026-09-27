@@ -9,7 +9,7 @@ from datetime import datetime
 class VerificationEmail(Base):
     __tablename__ = "verification_emails"
 
-    __table_args__ = (Index("idx_verification_email_user_id", "user_id"), )
+    __table_args__ = (Index("idx_verification_email_user_id", "user_id"),)
 
     id: Mapped[UUID] = mapped_column(
         PG_UUID(as_uuid=True), primary_key=True, default=uuid4

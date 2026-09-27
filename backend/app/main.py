@@ -6,18 +6,17 @@ from app.db.dependency import get_db
 from app.core.settings import settings
 import logging
 from fastapi.responses import JSONResponse
-from fastapi.exceptions import  RequestValidationError
+from fastapi.exceptions import RequestValidationError
 
 from app.api.user import router as user_router
 
 app = FastAPI()
 
 logger = logging.getLogger("uvicorn.error")
+
+
 @app.exception_handler(RequestValidationError)
-async def validation_exception_handler(
-    request: Request,
-    exc: RequestValidationError
-):
+async def validation_exception_handler(request: Request, exc: RequestValidationError):
     body = await request.body()
 
     logger.error(
@@ -25,43 +24,30 @@ async def validation_exception_handler(
         request.method,
         request.url,
         body.decode("utf-8"),
-        exc.errors()
+        exc.errors(),
     )
 
-    return JSONResponse(
-        status_code=422,
-        content={
-            "detail": exc.errors()
-        }
-    )
+    return JSONResponse(status_code=422, content={"detail": exc.errors()})
+
 
 @app.exception_handler(Exception)
-async def global_exception_handler(
-    request: Request,
-    exc: Exception
-):
+async def global_exception_handler(request: Request, exc: Exception):
     logger.exception(
         "Unhandled exception on %s %s",
         request.method,
         request.url,
     )
 
-    return JSONResponse(
-        status_code=500,
-        content={
-            "detail": "Internal Server Error"
-        }
-    )
+    return JSONResponse(status_code=500, content={"detail": "Internal Server Error"})
+
 
 # dev
 app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_headers=["*"],
-    allow_methods=["*"]
+    CORSMiddleware, allow_origins=["*"], allow_headers=["*"], allow_methods=["*"]
 )
 
 app.include_router(user_router)
+
 
 @app.get("/")
 async def hello():

@@ -6,8 +6,11 @@ import { getCurrentUser } from "@/lib/user-api";
 export function useAuth()
 {
     const queryClient = useQueryClient();
-    const hasToken = typeof window !== "undefined" && 
-    Boolean(localStorage.getItem("access_token"));
+    const hasToken = typeof window !== "undefined" &&
+    Boolean(
+        localStorage.getItem("access_token") ??
+        sessionStorage.getItem("access_token")
+    );
     // queryKey == backend response saved
     const userQuery = useQuery({
         queryKey: ["auth", "user"],
@@ -19,6 +22,7 @@ export function useAuth()
     function logout()
     {
         localStorage.removeItem("access_token");
+        sessionStorage.removeItem("access_token");
         queryClient.removeQueries({queryKey: ["auth", "user"]});
         // queryClient.removeQueries({queryKey: ["cart"]})
     }
